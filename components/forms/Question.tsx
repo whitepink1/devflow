@@ -61,7 +61,7 @@ const Question = ({mongoUserId}: Props) => {
                 form.trigger();
             }
         }
-    }
+    } 
 
     const handleTagRemove = (tag: string, field: any) => {
         const newTags = field.value.filter((t: string) => t !== tag);
