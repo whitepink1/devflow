@@ -20,7 +20,7 @@ import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
 
-const type: any = "create";
+const typePage: string = 'create';
 
 interface Props {
   mongoUserId: string;
@@ -40,7 +40,7 @@ const Question = ({mongoUserId}: Props) => {
         },
       })
     
-    const handleInputKeyDown =  (e: React.KeyboardEvent<HTMLInputElement>, field: any) => {
+    const handleInputKeyDown =  (e: React.KeyboardEvent<HTMLInputElement>, field) => {
         if(e.key === "Enter" && field.name === 'tags') {
             e.preventDefault();
             const tagInput = e.target as HTMLInputElement;
@@ -63,7 +63,7 @@ const Question = ({mongoUserId}: Props) => {
         }
     }
 
-    const handleTagRemove = (tag: string, field: any) => {
+    const handleTagRemove = (tag: string, field) => {
         const newTags = field.value.filter((t: string) => t !== tag);
         form.setValue('tags', newTags);
     }
@@ -114,7 +114,7 @@ const Question = ({mongoUserId}: Props) => {
                     <Editor
                         apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                         onInit={(_evt, editor) => {
-                            // @ts-ignore
+                            //@ts-expect-error
                             editorRef.current = editor
                         }}
                         initialValue="<p>Abc</p>"
@@ -149,7 +149,7 @@ const Question = ({mongoUserId}: Props) => {
                   <div>
                   <Input onKeyDown={(e) => {handleInputKeyDown(e, field)}} placeholder="Add tags..." className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"/>
                   {field?.value.length > 0 && (<div className="flex-start mt-2.5 gap-2.5">
-                    {field.value.map((tag: any) => 
+                    {field.value.map((tag) => 
                         <div key={tag} onClick={() => handleTagRemove(tag, field)} className="subtle-medium background-light800_dark300 text-light400_light500 flex items-center justify-center gap-2 rounded-md border-none px-4 py-2 capitalize">
                             {tag}
                             <Image src="/assets/icons/close.svg" height={12} width={12} alt="Close icon" className="cursor-pointer object-contain invert-0 dark:invert"/>
@@ -166,11 +166,11 @@ const Question = ({mongoUserId}: Props) => {
           />
           <Button type="submit" className="primary-gradient w-fit !text-light-900" disabled={isSubmitting}>{isSubmitting ? (
             <>
-            {type === 'edit' ? 'Editing...' : 'Posting...'}
+            {typePage === 'edit' ? 'Editing...' : 'Posting...'}
             </>
           ) : (
             <>
-            {type === 'edit' ? 'Edit Question' : 'Ask a Question'}
+            {typePage === 'edit' ? 'Edit Question' : 'Ask a Question'}
             </>
           )}</Button>
         </form>
