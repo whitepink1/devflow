@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, {  useState } from "react";
 import { Editor } from '@tinymce/tinymce-react';
 import { z } from "zod";
 import { zodResolver} from "@hookform/resolvers/zod";
@@ -30,7 +30,7 @@ const Question = ({mongoUserId}: Props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
-    const editorRef = useRef(null);
+    //const editorRef = useRef(null);
     const form = useForm<z.infer<typeof QuestionSchema>>({
         resolver: zodResolver(QuestionSchema),
         defaultValues: {
@@ -63,7 +63,7 @@ const Question = ({mongoUserId}: Props) => {
         }
     }
 
-    const handleTagRemove = (tag: string, field) => {
+    const handleTagRemove = (tag: string, field ) => {
         const newTags = field.value.filter((t: string) => t !== tag);
         form.setValue('tags', newTags);
     }
@@ -113,13 +113,14 @@ const Question = ({mongoUserId}: Props) => {
                 <FormControl className="mt-3.5">
                     <Editor
                         apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
-                        onInit={(_evt, editor) => {
-                            //@ts-expect-error
-                            editorRef.current = editor
-                        }}
+                        // onInit={(_evt, editor) => {
+                           
+                        //     editorRef.current = editor
+                        // }}
                         initialValue="<p>Abc</p>"
                         init={{
                         height: 350,
+                        value: field,
                         menubar: false,
                         plugins: [
                             'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
