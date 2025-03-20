@@ -6,11 +6,11 @@ import Tag from "../database/tag.model";
 import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
 import { CreeateQuestionParams } from "./shared.types";
+import { GetQuestionsParams } from "@/types/shared.types";
 
 
 
-// export async function getQuestions(params: GetQuestionsParams) {
-export async function getQuestions() {
+export async function getQuestions(params: GetQuestionsParams) {
     try {
         await connectToDatabase();
         const questions = await Question.find({})
@@ -19,6 +19,7 @@ export async function getQuestions() {
         .sort({createdAt: -1});
         return {questions};
     } catch(error) {
+        console.log(params);
         console.log(error);
         throw error;
     }

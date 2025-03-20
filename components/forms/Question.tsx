@@ -40,7 +40,7 @@ const Question = ({mongoUserId}: Props) => {
         },
       })
     
-    const handleInputKeyDown =  (e: React.KeyboardEvent<HTMLInputElement>, field) => {
+    const handleInputKeyDown =  (e: React.KeyboardEvent<HTMLInputElement>, field: any) => {
         if(e.key === "Enter" && field.name === 'tags') {
             e.preventDefault();
             const tagInput = e.target as HTMLInputElement;
@@ -63,7 +63,7 @@ const Question = ({mongoUserId}: Props) => {
         }
     }
 
-    const handleTagRemove = (tag: string, field ) => {
+    const handleTagRemove = (tag: string, field: any) => {
         const newTags = field.value.filter((t: string) => t !== tag);
         form.setValue('tags', newTags);
     }
