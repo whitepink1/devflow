@@ -16,12 +16,9 @@ export async function POST(req: Request) {
   // Create new Svix instance with secret
   const wh = new Webhook(SIGNING_SECRET)
 
-  // Get headers
-  const headerPayload = await headers()
-  const svix_id = headerPayload.get('svix-id')
-  const svix_timestamp = headerPayload.get('svix-timestamp')
-  const svix_signature = headerPayload.get('svix-signature')
-  console.log("🔹 Заголовки:", headerPayload);
+  const svix_id = req.headers.get('svix-id');
+  const svix_timestamp = req.headers.get('svix-timestamp');
+  const svix_signature = req.headers.get('svix-signature');
 
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
