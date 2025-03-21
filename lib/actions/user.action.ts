@@ -36,6 +36,7 @@ export async function updateUser(params:UpdateUserParams) {
         await User.findOneAndUpdate({clerkId}, updateData, {
             new: true,
         });
+        console.log("🔄 Revalidating path:", path);
         revalidatePath(path);
     } catch(error) {
         console.log(error);

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge"
-// import { Props } from "next/script";
 import React from "react";
 interface Props {
     _id: string;
